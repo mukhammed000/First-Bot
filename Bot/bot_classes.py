@@ -1,10 +1,10 @@
 from telegram import Update
-from telegram.ext import ContextTypes
+from telegram.ext import ContextTypes, Application
 from utils import Languages, States, ChoosingLanguage, Greetings
 from menu import show_menu, select_language
 
 class Bot:
-    def __init__(self, app):
+    def __init__(self, app: Application):
         self.app = app
         self.users = {}
     
@@ -22,7 +22,7 @@ class Bot:
         if chat_id not in self.users:
             self.users[chat_id] = User(States[0], Languages[0])
             
-        await select_language(update, context, self.users[chat_id])
+        await select_language(update, context, self.users[chat_id], self.app)
         
 
 class User:

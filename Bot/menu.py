@@ -1,8 +1,8 @@
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
-from telegram.ext import ContextTypes
+from telegram.ext import ContextTypes, Application, MessageHandler, filters
 from utils import Languages, States, ChoosingLanguage, MenuButtons, Greetings
 
-async def select_language(update: Update, context: ContextTypes.DEFAULT_TYPE, user):
+async def select_language(update: Update, context: ContextTypes.DEFAULT_TYPE, user, app: Application):
     user_language = user.get_language()
     text = ""
     
@@ -19,6 +19,8 @@ async def select_language(update: Update, context: ContextTypes.DEFAULT_TYPE, us
     reply_keyboard = ReplyKeyboardMarkup(keyboards, resize_keyboard=True)
     
     await update.message.reply_text(text, reply_markup=reply_keyboard) 
+    
+    app.add_handler(MessageHandler(""))
 
 async def show_menu(update: Update, context: ContextTypes.DEFAULT_TYPE, user):
     user_language = user.get_language() 

@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from telegram.ext import ApplicationBuilder, CommandHandler
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 from bot_classes import Bot, User
 from utils import Languages, States
 
@@ -9,7 +9,8 @@ token = os.getenv("token")
 
 def main():
     app = ApplicationBuilder().token(token).build()
-    bot = Bot(app)
+    user = User("Regular", "English")
+    bot = Bot(app, user)
     
     app.add_handler(CommandHandler("start", bot.start)) 
     app.add_handler(CommandHandler("language", bot.language))
